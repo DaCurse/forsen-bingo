@@ -1,0 +1,16 @@
+.square {
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	transition: ease-in-out 0.1s;
+	overflow: hidden;
+	text-align: center;
+	color: black;
+	font-size: 10pt;
+	padding: 5px;
+}
+
+.square.active {
+	cursor: default;
+	background-color: #2ecc71;
+}

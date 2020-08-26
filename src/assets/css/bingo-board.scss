@@ -1,0 +1,16 @@
+.bingo-board {
+	width: 750px;
+	margin: 0 auto;
+	min-height: 100%;
+}
+
+.winner {
+	color: lightgreen;
+	transition: ease-in-out 0.2s;
+}
+
+.bingo-board table,
+td {
+	border: 1px solid black;
+	background-color: white;
+}
