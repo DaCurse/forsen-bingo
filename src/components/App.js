@@ -10,7 +10,7 @@ export function App() {
 			<footer>
 				<a href="https://redd.it/ighswa">Original post</a> by /u/five_cacti
 				|&nbsp;
-				<a href="#">GitHub</a>
+				<a href="https://github.com/DaCurse/forsen-bingo">GitHub</a>
 			</footer>
 		</div>
 	);
