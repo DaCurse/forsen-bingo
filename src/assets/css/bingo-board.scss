@@ -9,8 +9,13 @@
 	transition: ease-in-out 0.2s;
 }
 
-.bingo-board table,
-td {
-	border: 1px solid black;
+.bingo-board table{
 	background-color: white;
+	table-layout: fixed;
+	width: 800px;
+}
+th, td {
+	border: 1px solid black;
+	overflow: hidden;
+	height: 65px;
 }
