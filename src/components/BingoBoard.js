@@ -19,22 +19,31 @@ function BingoBoard(props) {
 		tableSize * Math.floor(tableSize / 2) + Math.floor(tableSize / 2);
 	[squares[middle], squares[freePos]] = [squares[freePos], squares[middle]]; // Best syntax ever
 
+	// Very efficient win checking algorithm Kapp
 	useEffect(() => {
 		const rows = partition(squareState, tableSize);
 		const fullRow = rows.some((row) => row.every((col) => col === true));
 
 		let fullDiag = true,
-			fullAntiDiag = true;
-		for (let i = 0; i < rows.length; i++) {
-			if (!rows[i][i]) {
-				fullDiag = false;
-			}
-			if (!rows[i][tableSize - i - 1]) {
-				fullAntiDiag = false;
+			fullAntiDiag = true,
+			fullCol = false;
+		for (
+			let i = 0;
+			i < tableSize && (fullCol || fullDiag || fullAntiDiag);
+			i++
+		) {
+			fullDiag = rows[i][i];
+			fullAntiDiag = rows[i][tableSize - i - 1];
+
+			for (let j = 0; j < tableSize; j++) {
+				if (!rows[j][i]) {
+					break;
+				}
+				if (j === tableSize - 1) fullCol = true;
 			}
 		}
 
-		setWinner(fullRow || fullDiag || fullAntiDiag);
+		setWinner(fullRow || fullDiag || fullAntiDiag || fullCol);
 	}, [squareState]);
 
 	function setActiveFactory(idx) {
