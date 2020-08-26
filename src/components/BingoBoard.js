@@ -3,7 +3,7 @@ import '../assets/css/bingo-board.scss';
 import FreeSpace from './FreeSpace';
 import Square from './Square';
 
-const FREE_SQUARE = '{free}';
+export const FREE_SQUARE = '{free}';
 
 function BingoBoard(props) {
 	const { title, squares } = props;
@@ -12,6 +12,12 @@ function BingoBoard(props) {
 	);
 	const [winner, setWinner] = useState(false);
 	const tableSize = Math.ceil(Math.sqrt(squares.length));
+
+	// Make sure free space is centered after shuffle
+	const freePos = squares.indexOf(FREE_SQUARE);
+	const middle =
+		tableSize * Math.floor(tableSize / 2) + Math.floor(tableSize / 2);
+	[squares[middle], squares[freePos]] = [squares[freePos], squares[middle]]; // Best syntax ever
 
 	useEffect(() => {
 		const rows = partition(squareState, tableSize);
