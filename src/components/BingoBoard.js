@@ -23,24 +23,18 @@ function BingoBoard(props) {
 	useEffect(() => {
 		const rows = partition(squareState, tableSize);
 		const fullRow = rows.some((row) => row.every((col) => col === true));
+		const fullCol = rows
+			.reduce(
+				(counters, row) => counters.map((counter, idx) => counter + row[idx]),
+				Array(tableSize).fill(0),
+			)
+			.some((counter) => counter === tableSize);
 
 		let fullDiag = true,
-			fullAntiDiag = true,
-			fullCol = false;
-		for (
-			let i = 0;
-			i < tableSize && (fullCol || fullDiag || fullAntiDiag);
-			i++
-		) {
+			fullAntiDiag = true;
+		for (let i = 0; i < tableSize && (fullDiag || fullAntiDiag); i++) {
 			fullDiag = rows[i][i];
 			fullAntiDiag = rows[i][tableSize - i - 1];
-
-			for (let j = 0; j < tableSize; j++) {
-				if (!rows[j][i]) {
-					break;
-				}
-				if (j === tableSize - 1) fullCol = true;
-			}
 		}
 
 		setWinner(fullRow || fullDiag || fullAntiDiag || fullCol);
