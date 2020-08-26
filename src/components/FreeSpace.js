@@ -14,7 +14,7 @@ function FreeSpace(props) {
 		<Square active={active} setActive={setActive.bind(null, true)}>
 			GFMB
 			<br />
-			<img src={forsenE} width="28" height="28" />
+			<img src={forsenE} width="28" height="28" alt="forsenE" />
 			<br />
 			(Free Space)
 		</Square>
