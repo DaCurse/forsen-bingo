@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { stringify } from 'querystring';
 
-const API_URL = 'http://64.227.20.96/api/bingo';
+const API_URL = 'https://forsenbingo.tk/api/bingo';
 
 export async function getSquares() {
 	const response = await axios.get(`${API_URL}/squares`);
