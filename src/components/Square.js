@@ -3,14 +3,14 @@ import React from 'react';
 import '../assets/css/square.scss';
 
 function Square(props) {
-	const { text, active, setActive, children } = props;
+	const { line, active, setActive, children } = props;
 
 	return (
 		<td
 			className={classNames('square', { active })}
 			onClick={() => setActive(!active)}
 		>
-			{text}
+			{line}
 			{children}
 		</td>
 	);
