@@ -1,16 +1,28 @@
 import classNames from 'classnames';
 import React from 'react';
 import '../assets/css/square.scss';
+import { activateSquare, deactivateSquare } from '../services/api-service';
 
 function Square(props) {
-	const { text, active, setActive, children } = props;
+	const { line, id, freeSquare, active, setActive, children } = props;
+
+	function handleSquareClick() {
+		if (freeSquare) return;
+
+		if (active) {
+			deactivateSquare(id);
+		} else {
+			activateSquare(id);
+		}
+		setActive(!active);
+	}
 
 	return (
 		<td
 			className={classNames('square', { active })}
-			onClick={() => setActive(!active)}
+			onClick={handleSquareClick}
 		>
-			{text}
+			{line}
 			{children}
 		</td>
 	);
