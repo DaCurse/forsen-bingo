@@ -62,8 +62,7 @@ function BingoBoard(props) {
 			/>
 		) : (
 			<Square
-				line={squares[index].line}
-				id={squares[index].id}
+				{...squares[index]}
 				active={squareState[index]}
 				setActive={setActiveFactory(index)}
 				key={index}

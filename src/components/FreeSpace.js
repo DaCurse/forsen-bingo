@@ -12,7 +12,11 @@ function FreeSpace(props) {
 
 	return (
 		// Make sure Free Space cannot be de-activated
-		<Square active={active} setActive={setActive.bind(null, true)}>
+		<Square
+			freeSquare={true}
+			active={active}
+			setActive={setActive.bind(null, true)}
+		>
 			GFMB
 			<br />
 			<img src={forsenE} width="28" height="28" alt="forsenE" />

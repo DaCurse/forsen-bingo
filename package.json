@@ -1,6 +1,6 @@
 {
 	"name": "forsen-bingo",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Bingo React app",
 	"author": "DaCurse",
 	"license": "GPL-3.0",
@@ -21,6 +21,7 @@
 		"file-loader": "^6.0.0",
 		"html-webpack-plugin": "^4.3.0",
 		"node-sass": "^4.14.1",
+		"querystring": "^0.2.0",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"regenerator-runtime": "^0.13.7",
