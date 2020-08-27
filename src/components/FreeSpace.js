@@ -3,14 +3,15 @@ import forsenE from '../assets/img/forsenE.webp';
 import Square from './Square';
 
 function FreeSpace(props) {
-	// Free space is by default active
 	const { active, setActive } = props;
 
+	// Free space is by default active
 	useEffect(() => {
 		setActive(true);
 	}, []);
 
 	return (
+		// Make sure Free Space cannot be de-activated
 		<Square active={active} setActive={setActive.bind(null, true)}>
 			GFMB
 			<br />

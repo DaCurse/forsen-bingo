@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import '../assets/css/bingo-board.scss';
+import { chunk } from '../util/chunk';
+import { indexedStateUpdateFactory } from '../util/indexed-state-update';
+import { swap } from '../util/swap';
 import FreeSpace from './FreeSpace';
 import Square from './Square';
 
@@ -7,25 +10,36 @@ export const FREE_SQUARE = '{free}';
 
 function BingoBoard(props) {
 	const { title, squares } = props;
+
 	const [squareState, setSquareState] = useState(
 		Array(squares.length).fill(false),
 	);
 	const [winner, setWinner] = useState(false);
+
+	// Creates a state update function for a square at a specific index
+	const setActiveFactory = indexedStateUpdateFactory.bind(
+		null,
+		squareState,
+		setSquareState,
+	);
+
+	// Bingo board should optimally be a square
 	const tableSize = Math.ceil(Math.sqrt(squares.length));
 
 	// Make sure free space is centered after shuffle
 	const freePos = squares.indexOf(FREE_SQUARE);
 	const middle =
 		tableSize * Math.floor(tableSize / 2) + Math.floor(tableSize / 2);
-	[squares[middle], squares[freePos]] = [squares[freePos], squares[middle]]; // Best syntax ever
+	swap(squares[middle], squares[freePos]);
 
 	// Very efficient win checking algorithm Kapp
 	useEffect(() => {
-		const rows = partition(squareState, tableSize);
+		const rows = chunk(squareState, tableSize);
 		const fullRow = rows.some((row) => row.every((col) => col === true));
 		const fullCol = rows
 			.reduce(
-				(counters, row) => counters.map((counter, idx) => counter + row[idx]),
+				(counters, row) =>
+					counters.map((counter, index) => counter + row[index]),
 				Array(tableSize).fill(0),
 			)
 			.some((counter) => counter === tableSize);
@@ -40,35 +54,27 @@ function BingoBoard(props) {
 		setWinner(fullRow || fullDiag || fullAntiDiag || fullCol);
 	}, [squareState]);
 
-	function setActiveFactory(idx) {
-		return (state) => {
-			const stateCopy = [...squareState];
-			stateCopy[idx] = state;
-			setSquareState(stateCopy);
-		};
-	}
-
-	const squaresToRender = squares.map((square, idx) =>
+	const squaresToRender = squares.map((square, index) =>
 		square === FREE_SQUARE ? (
 			<FreeSpace
-				active={squareState[idx]}
-				setActive={setActiveFactory(idx)}
-				key={idx}
+				active={squareState[index]}
+				setActive={setActiveFactory(index)}
+				key={index}
 			/>
 		) : (
 			<Square
-				text={squares[idx]}
-				active={squareState[idx]}
-				setActive={setActiveFactory(idx)}
-				key={idx}
+				text={squares[index]}
+				active={squareState[index]}
+				setActive={setActiveFactory(index)}
+				key={index}
 			/>
 		),
 	);
 
-	const squareTable = partition(
+	const squareTable = chunk(
 		squaresToRender,
 		tableSize,
-	).map((columns, idx) => <tr key={idx}>{columns}</tr>);
+	).map((columns, index) => <tr key={index}>{columns}</tr>);
 
 	return (
 		<div className="bingo-board">
@@ -83,15 +89,6 @@ function BingoBoard(props) {
 			</table>
 		</div>
 	);
-}
-
-function partition(arr, size) {
-	const temp = [];
-	for (let i = 0; i < arr.length; i += size) {
-		temp.push(arr.slice(i, i + size));
-	}
-
-	return temp;
 }
 
 export default BingoBoard;
