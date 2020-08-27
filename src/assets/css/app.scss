@@ -2,35 +2,6 @@
 	text-align: center;
 }
 
-.loading {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	margin: 5px;
-	font-size: 36pt;
-}
-
-@keyframes loading {
-	0% {
-		content: '';
-	}
-	33% {
-		content: '.';
-	}
-	66% {
-		content: '..';
-	}
-	100% {
-		content: '...';
-	}
-}
-
-.loading:after {
-	content: '';
-	animation: loading 1s infinite;
-}
-
 footer {
 	position: relative;
 	clear: both;

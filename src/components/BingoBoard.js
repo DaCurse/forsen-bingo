@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../assets/css/bingo-board.scss';
 import { chunk } from '../util/chunk';
 import { indexedStateUpdateFactory } from '../util/indexed-state-update';
+import { swap } from '../util/swap';
 import FreeSpace from './FreeSpace';
 import Square from './Square';
 
@@ -26,10 +27,10 @@ function BingoBoard(props) {
 	const tableSize = Math.ceil(Math.sqrt(squares.length));
 
 	// Make sure free space is centered after shuffle
-	const freePos = squares.findIndex((square) => square.freeSquare);
+	const freePos = squares.indexOf(FREE_SQUARE);
 	const middle =
 		tableSize * Math.floor(tableSize / 2) + Math.floor(tableSize / 2);
-	[squares[middle], squares[freePos]] = [squares[freePos], squares[middle]];
+	swap(squares[middle], squares[freePos]);
 
 	// Very efficient win checking algorithm Kapp
 	useEffect(() => {
@@ -54,7 +55,7 @@ function BingoBoard(props) {
 	}, [squareState]);
 
 	const squaresToRender = squares.map((square, index) =>
-		square.freeSquare ? (
+		square === FREE_SQUARE ? (
 			<FreeSpace
 				active={squareState[index]}
 				setActive={setActiveFactory(index)}
@@ -62,7 +63,7 @@ function BingoBoard(props) {
 			/>
 		) : (
 			<Square
-				{...squares[index]}
+				text={squares[index]}
 				active={squareState[index]}
 				setActive={setActiveFactory(index)}
 				key={index}
