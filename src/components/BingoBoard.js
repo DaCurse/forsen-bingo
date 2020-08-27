@@ -5,8 +5,6 @@ import { indexedStateUpdateFactory } from '../util/indexed-state-update';
 import FreeSpace from './FreeSpace';
 import Square from './Square';
 
-export const FREE_SQUARE = '{free}';
-
 function BingoBoard(props) {
 	const { title, squares } = props;
 
