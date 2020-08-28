@@ -43,9 +43,13 @@ function BingoBoard(props) {
 
 		let fullDiag = true,
 			fullAntiDiag = true;
-		for (let i = 0; i < tableSize && (fullDiag || fullAntiDiag); i++) {
-			fullDiag = rows[i][i];
-			fullAntiDiag = rows[i][tableSize - i - 1];
+		for (let i = 0; i < tableSize; i++) {
+			if (!rows[i][i]) {
+				fullDiag = false;
+			}
+			if (!rows[i][tableSize - i - 1]) {
+				fullAntiDiag = false;
+			}
 		}
 
 		setWinner(fullRow || fullDiag || fullAntiDiag || fullCol);
