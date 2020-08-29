@@ -9,7 +9,7 @@ function BingoBoard(props) {
 	const { title, squares } = props;
 
 	const [squareState, setSquareState] = useState(
-		Array(squares.length).fill(false),
+		props.squareState || Array(squares.length).fill(false),
 	);
 	const [winner, setWinner] = useState(false);
 
