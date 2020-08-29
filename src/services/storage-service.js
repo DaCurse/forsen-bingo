@@ -8,22 +8,23 @@ const SQUARE_STATE_KEY = 'squares-state';
  */
 export function saveState(squares, squareState) {
 	localStorage.setItem(SQUARES_KEY, JSON.stringify(squares));
-	localStorage.setItem(SQUARE_STATE_KEY, squareState.map(Number));
+	localStorage.setItem(SQUARE_STATE_KEY, JSON.stringify(squareState));
 }
 
 /**
  * Retrieves and parses the game state from local storage
+ * Resets the game state if it's invalid
  */
 export function getState() {
-	const squares = localStorage.getItem(SQUARES_KEY);
-	const squareState = localStorage.getItem(SQUARE_STATE_KEY);
+	try {
+		const squares = JSON.parse(localStorage.getItem(SQUARES_KEY));
+		const squareState = JSON.parse(localStorage.getItem(SQUARE_STATE_KEY));
 
-	if (!squares || !squareState) return {};
-
-	return {
-		squares: JSON.parse(squares),
-		squareState: squareState.split(',').map(Boolean),
-	};
+		return { squares, squareState };
+	} catch (e) {
+		deleteState();
+		return {};
+	}
 }
 
 /**
