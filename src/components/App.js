@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import '../assets/css/app.scss';
 import { getSquares } from '../services/api-service';
-import { getState } from '../services/storage-service';
+import { getGameState } from '../services/storage-service';
 import BingoBoard from './BingoBoard';
 
 export function App() {
-	const savedState = getState();
+	const savedState = getGameState();
 	const [squares, setSquares] = useState(savedState.squares);
 
 	useEffect(() => {

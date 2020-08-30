@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../assets/css/bingo-board.scss';
-import { saveState } from '../services/storage-service';
+import { saveGameState } from '../services/storage-service';
 import { chunk } from '../util/chunk';
 import { indexedStateUpdateFactory } from '../util/indexed-state-update';
 import FreeSpace from './FreeSpace';
@@ -56,7 +56,7 @@ function BingoBoard(props) {
 		setWinner(fullRow || fullDiag || fullAntiDiag || fullCol);
 	}, [squareState]);
 
-	useEffect(() => saveState(squares, squareState), [squareState]);
+	useEffect(() => saveGameState(squares, squareState), [squareState]);
 
 	const squaresToRender = squares.map((square, index) =>
 		square.freeSquare ? (
