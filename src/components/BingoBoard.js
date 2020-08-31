@@ -86,7 +86,7 @@ function BingoBoard(props) {
 				{title}
 				{winner && <span className="winner">&nbsp;-&nbsp;Winner!</span>}
 			</h1>
-			<div>Date: {new Date().toLocaleDateString()}</div>
+			<div className="date">Date: {new Date().toLocaleDateString()}</div>
 
 			<table>
 				<tbody>{squareTable}</tbody>

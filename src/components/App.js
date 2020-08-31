@@ -3,6 +3,7 @@ import '../assets/css/app.scss';
 import { getSquares } from '../services/api-service';
 import { getGameState } from '../services/storage-service';
 import BingoBoard from './BingoBoard';
+import Controls from './Controls';
 
 export function App() {
 	const savedState = getGameState();
@@ -22,6 +23,8 @@ export function App() {
 					squares={squares}
 					squareState={savedState.squareState}
 				/>
+				<Controls />
+
 				<footer>
 					<a href="https://redd.it/ighswa">Original post</a> by /u/five_cacti
 					|&nbsp;
