@@ -22,7 +22,7 @@ api.interceptors.response.use(responseHandler, errorHandler);
 /**
  * Retrieves a list of bingo squares from the API
  */
-export async function getSquares() {
+export async function fetchSquares() {
 	const response = await api.get('squares');
 	return response.data;
 }
@@ -31,7 +31,7 @@ export async function getSquares() {
  * Logs an activation of a square
  * @param {number} id ID of the square
  */
-export function activateSquare(id) {
+export function logActivateSquare(id) {
 	api.post('activate', stringify({ id }));
 }
 
@@ -39,6 +39,6 @@ export function activateSquare(id) {
  * Logs a deactivation of a square
  * @param {number} id ID of the square
  */
-export function deactivateSquare(id) {
+export function logDeactivateSquare(id) {
 	api.post('deactivate', stringify({ id }));
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../assets/css/app.scss';
-import { getSquares } from '../services/api-service';
+import { fetchSquares } from '../services/api-service';
 import { getGameState } from '../services/storage-service';
 import BingoBoard from './BingoBoard';
 import Controls from './Controls';
@@ -11,7 +11,7 @@ export function App() {
 
 	useEffect(() => {
 		if (!squares) {
-			getSquares().then((squares) => setSquares(squares));
+			fetchSquares().then((squares) => setSquares(squares));
 		}
 	}, []);
 

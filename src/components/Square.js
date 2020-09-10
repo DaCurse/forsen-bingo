@@ -1,7 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
 import '../assets/css/square.scss';
-import { activateSquare, deactivateSquare } from '../services/api-service';
+import {
+	logActivateSquare,
+	logDeactivateSquare,
+} from '../services/api-service';
 
 function Square(props) {
 	const { line, id, freeSquare, active, setActive, children } = props;
@@ -10,9 +13,9 @@ function Square(props) {
 		if (freeSquare) return;
 
 		if (active) {
-			deactivateSquare(id);
+			logDeactivateSquare(id);
 		} else {
-			activateSquare(id);
+			logActivateSquare(id);
 		}
 		setActive(!active);
 	}
