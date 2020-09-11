@@ -16,6 +16,7 @@ function Controls(props) {
 	return (
 		<div className="controls">
 			<button
+				title="Clears the current selected squares"
 				onClick={() =>
 					confirmAction('Are you sure you want to clear the board?', clear)
 				}
@@ -24,19 +25,23 @@ function Controls(props) {
 			</button>
 
 			<button
+				title="Clears the board and re-shuffles the squares"
 				onClick={() =>
 					confirmAction(
 						'Are you sure you want to reset the board? (This will clear the board and shuffle the options)',
-						reset,
+						() => (deleteGameState(), reset()),
 					)
 				}
 			>
 				Reset
 			</button>
 
-			<button onClick={save}>Save</button>
+			<button title="Saves the current game" onClick={save}>
+				Save
+			</button>
 
 			<button
+				title="Deletes the local game save"
 				onClick={() =>
 					confirmAction(
 						'Are you sure you want to delete the current save?',
@@ -47,7 +52,7 @@ function Controls(props) {
 				Delete Save
 			</button>
 
-			<label>
+			<label title="Automatically saves all changes made to the game">
 				<input
 					type="checkbox"
 					checked={autoSave}

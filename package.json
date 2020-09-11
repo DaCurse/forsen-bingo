@@ -1,11 +1,15 @@
 {
 	"name": "forsen-bingo",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "Bingo React app",
 	"author": "DaCurse",
 	"license": "GPL-3.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/DaCurse/forsen-bingo.git"
+	},
 	"scripts": {
-		"build": "webpack --mode=\"production\"",
+		"build": "webpack --mode=\"production\" --progress",
 		"start": "webpack-dev-server --open",
 		"format": "prettier --write \"src/**/*.js\"",
 		"lint": "eslint \"!(dist|node_modules)/**/*.js\" --fix"
