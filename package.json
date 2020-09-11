@@ -1,52 +1,55 @@
 {
 	"name": "forsen-bingo",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"description": "Bingo React app",
-	"author": "DaCurse",
-	"license": "GPL-3.0",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/DaCurse/forsen-bingo.git"
 	},
+	"license": "GPL-3.0",
+	"author": "DaCurse",
 	"scripts": {
 		"build": "webpack --mode=\"production\" --progress",
-		"start": "webpack-dev-server --open",
 		"format": "prettier --write \"src/**/*.js\"",
-		"lint": "eslint \"!(dist|node_modules)/**/*.js\" --fix"
-	},
-	"dependencies": {
-		"@babel/core": "^7.11.6",
-		"@babel/preset-env": "^7.11.5",
-		"@babel/preset-react": "^7.10.4",
-		"axios": "^0.20.0",
-		"babel-loader": "^8.1.0",
-		"classnames": "^2.2.6",
-		"css-loader": "^4.3.0",
-		"file-loader": "^6.1.0",
-		"html-webpack-plugin": "^4.4.1",
-		"node-sass": "^4.14.1",
-		"react": "^16.13.1",
-		"react-dom": "^16.13.1",
-		"react-redux": "^7.2.1",
-		"redux": "^4.0.5",
-		"redux-thunk": "^2.3.0",
-		"sass-loader": "^10.0.2",
-		"style-loader": "^1.2.1",
-		"webpack": "^4.44.1",
-		"webpack-cli": "^3.3.12"
-	},
-	"devDependencies": {
-		"eslint": "^7.8.1",
-		"eslint-config-prettier": "^6.11.0",
-		"eslint-plugin-import": "^2.22.0",
-		"eslint-plugin-react": "^7.20.6",
-		"prettier": "^2.1.1",
-		"webpack-dev-server": "^3.11.0"
+		"lint": "eslint \"!(dist|node_modules)/**/*.js\" --fix",
+		"start": "webpack-dev-server --open"
 	},
 	"babel": {
 		"presets": [
 			"@babel/preset-env",
 			"@babel/preset-react"
 		]
+	},
+	"dependencies": {
+		"axios": "^0.20.0",
+		"classnames": "^2.2.6",
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
+		"react-redux": "^7.2.1",
+		"redux": "^4.0.5",
+		"redux-thunk": "^2.3.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.11.6",
+		"@babel/preset-env": "^7.11.5",
+		"@babel/preset-react": "^7.10.4",
+		"babel-loader": "^8.1.0",
+		"css-loader": "^4.3.0",
+		"eslint": "^7.8.1",
+		"eslint-config-prettier": "^6.11.0",
+		"eslint-plugin-import": "^2.22.0",
+		"eslint-plugin-react": "^7.20.6",
+		"file-loader": "^6.1.0",
+		"html-webpack-plugin": "^4.4.1",
+		"mini-css-extract-plugin": "^0.11.1",
+		"node-sass": "^4.14.1",
+		"optimize-css-assets-webpack-plugin": "^5.0.4",
+		"prettier": "^2.1.1",
+		"sass-loader": "^10.0.2",
+		"terser-webpack-plugin": "^4.1.0",
+		"url-loader": "^4.1.0",
+		"webpack": "^4.44.1",
+		"webpack-cli": "^3.3.12",
+		"webpack-dev-server": "^3.11.0"
 	}
 }
