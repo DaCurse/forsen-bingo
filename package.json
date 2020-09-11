@@ -5,7 +5,7 @@
 	"author": "DaCurse",
 	"license": "GPL-3.0",
 	"scripts": {
-		"build": "webpack --mode=\"production\"",
+		"build": "webpack --mode=\"production\" --progress",
 		"start": "webpack-dev-server --open",
 		"format": "prettier --write \"src/**/*.js\"",
 		"lint": "eslint \"!(dist|node_modules)/**/*.js\" --fix"

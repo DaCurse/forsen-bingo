@@ -2,9 +2,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
-// Exposing current environment to browser
-new webpack.EnvironmentPlugin(['NODE_ENV']);
-
 module.exports = {
 	entry: './src/index.js',
 	output: {
@@ -34,5 +31,7 @@ module.exports = {
 			favicon: './src/assets/img/favicon.ico',
 			template: './public/index.html',
 		}),
+		// Exposing environment variables to browser
+		new webpack.EnvironmentPlugin(['NODE_ENV', 'MAINTENANCE']),
 	],
 };
