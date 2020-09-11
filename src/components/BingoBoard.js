@@ -1,43 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import '../assets/css/bingo-board.scss';
-import { saveGameState } from '../services/storage-service';
 import { chunk } from '../util/chunk';
-import { indexedStateUpdateFactory } from '../util/indexed-state-update';
 import FreeSpace from './FreeSpace';
 import Square from './Square';
 
 function BingoBoard(props) {
-	const { title, squares } = props;
-
-	const [squareState, setSquareState] = useState(
-		props.squareState || Array(squares.length).fill(false),
-	);
+	const { squares } = props;
 	const [winner, setWinner] = useState(false);
-
-	// Creates a state update function for a square at a specific index
-	const setActiveFactory = indexedStateUpdateFactory.bind(
-		null,
-		squareState,
-		setSquareState,
-	);
 
 	// Bingo board should optimally be a square
 	const tableSize = Math.ceil(Math.sqrt(squares.length));
 
-	// Make sure free space is centered after shuffle
-	const freePos = squares.findIndex((square) => square.freeSquare);
-	const middle =
-		tableSize * Math.floor(tableSize / 2) + Math.floor(tableSize / 2);
-	[squares[middle], squares[freePos]] = [squares[freePos], squares[middle]];
-
 	// Very efficient win checking algorithm Kapp
 	useEffect(() => {
-		const rows = chunk(squareState, tableSize);
-		const fullRow = rows.some((row) => row.every((col) => col === true));
+		const rows = chunk(squares, tableSize);
+		const fullRow = rows.some((row) => row.every((col) => col.active));
 		const fullCol = rows
 			.reduce(
 				(counters, row) =>
-					counters.map((counter, index) => counter + row[index]),
+					counters.map((counter, index) => counter + row[index].active),
 				Array(tableSize).fill(0),
 			)
 			.some((counter) => counter === tableSize);
@@ -45,33 +27,24 @@ function BingoBoard(props) {
 		let fullDiag = true,
 			fullAntiDiag = true;
 		for (let i = 0; i < tableSize; i++) {
-			if (!rows[i][i]) {
+			if (!rows[i][i].active) {
 				fullDiag = false;
 			}
-			if (!rows[i][tableSize - i - 1]) {
+			if (!rows[i][tableSize - i - 1].active) {
 				fullAntiDiag = false;
 			}
 		}
 
 		setWinner(fullRow || fullDiag || fullAntiDiag || fullCol);
-	}, [squareState]);
+	}, [squares]);
 
-	useEffect(() => saveGameState(squares, squareState), [squareState]);
+	// useEffect(() => saveGameState(squares, squareState), [squareState]);
 
 	const squaresToRender = squares.map((square, index) =>
 		square.freeSquare ? (
-			<FreeSpace
-				active={squareState[index]}
-				setActive={setActiveFactory(index)}
-				key={index}
-			/>
+			<FreeSpace id={square.id} key={index} />
 		) : (
-			<Square
-				{...squares[index]}
-				active={squareState[index]}
-				setActive={setActiveFactory(index)}
-				key={index}
-			/>
+			<Square id={square.id} key={index} />
 		),
 	);
 
@@ -83,7 +56,7 @@ function BingoBoard(props) {
 	return (
 		<div className="bingo-board">
 			<h1 className="title">
-				{title}
+				Forsen Mega Bingo
 				{winner && <span className="winner">&nbsp;-&nbsp;Winner!</span>}
 			</h1>
 			<div className="date">Date: {new Date().toLocaleDateString()}</div>
@@ -95,4 +68,6 @@ function BingoBoard(props) {
 	);
 }
 
-export default BingoBoard;
+const mapStateToProps = (state) => ({ squares: state });
+
+export default connect(mapStateToProps)(BingoBoard);
