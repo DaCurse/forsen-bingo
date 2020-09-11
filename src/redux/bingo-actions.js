@@ -1,25 +1,22 @@
+import { fetchSquares } from '../services/api-service';
 import {
-	fetchSquares,
-	logActivateSquare,
-	logDeactivateSquare,
-} from '../services/api-service';
-import { ACTIVATE_SQUARE, DEACTIVATE_SQUARE, LOAD_BOARD } from './bingo-types';
+	ACTIVATE_SQUARE,
+	CLEAR_BOARD,
+	DEACTIVATE_SQUARE,
+	LOAD_BOARD,
+	SAVE_BOARD,
+	SET_AUTO_SAVE,
+} from './bingo-types';
 
-export const activateSquare = (id) => (
-	logActivateSquare(id),
-	{
-		type: ACTIVATE_SQUARE,
-		id,
-	}
-);
+export const activateSquare = (id) => ({
+	type: ACTIVATE_SQUARE,
+	id,
+});
 
-export const deactivateSquare = (id) => (
-	logDeactivateSquare(id),
-	{
-		type: DEACTIVATE_SQUARE,
-		id,
-	}
-);
+export const deactivateSquare = (id) => ({
+	type: DEACTIVATE_SQUARE,
+	id,
+});
 
 export const loadBoard = () => {
 	return async (dispatch) => {
@@ -42,3 +39,12 @@ export const loadBoard = () => {
 		});
 	};
 };
+
+export const clearBoard = () => ({ type: CLEAR_BOARD });
+
+export const saveBoard = () => ({ type: SAVE_BOARD });
+
+export const setAutoSave = (value) => ({
+	type: SET_AUTO_SAVE,
+	payload: Boolean(value),
+});

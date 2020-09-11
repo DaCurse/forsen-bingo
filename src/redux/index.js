@@ -4,7 +4,10 @@ import { loadGameState, saveGameState } from '../services/storage-service';
 import rootReducer from './bingo-reducer';
 
 const middleware = [thunk];
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers =
+	(process.env.NODE_ENV !== 'production' && // Make sure Redux DevTools is not available in production
+		window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+	compose;
 const enhancer = composeEnhancers(applyMiddleware(...middleware));
 
 const savedState = loadGameState();

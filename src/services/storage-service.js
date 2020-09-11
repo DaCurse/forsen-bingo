@@ -1,7 +1,7 @@
 const SQUARES_KEY = 'squares';
 
 /**
- * Stores the current game state in local storage
+ * Stores the current game state in `localStorage`
  * @param {Array} squares Array of current squares and their order
  * @param {Array<boolean>} squareState State of activated squares
  */
@@ -14,7 +14,7 @@ export function saveGameState(squares) {
 }
 
 /**
- * Retrieves and parses the game state from local storage
+ * Retrieves and parses the game state from `localStorage`
  * Resets the game state if it's invalid
  */
 export function loadGameState() {
