@@ -2,12 +2,11 @@ const SQUARES_KEY = 'squares';
 
 /**
  * Stores the current game state in `localStorage`
- * @param {Array} squares Array of current squares and their order
- * @param {Array<boolean>} squareState State of activated squares
+ * @param {Object} state Game state
  */
-export function saveGameState(squares) {
+export function saveGameState(state) {
 	try {
-		localStorage.setItem(SQUARES_KEY, JSON.stringify(squares));
+		localStorage.setItem(SQUARES_KEY, JSON.stringify(state));
 	} catch {
 		// Ignore write errors
 	}
