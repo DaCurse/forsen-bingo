@@ -3,7 +3,7 @@ import { stringify } from 'querystring';
 
 // Creating and configuring axios instance
 const api = axios.create({
-	baseURL: 'https://forsenbingo.tk/api/bingo',
+	baseURL: process.env.API_URL,
 });
 api.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 

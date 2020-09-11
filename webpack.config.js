@@ -56,7 +56,7 @@ module.exports = {
 			},
 		}),
 		// Exposing environment variables to browser
-		new EnvironmentPlugin(['NODE_ENV', 'MAINTENANCE']),
+		new EnvironmentPlugin(['NODE_ENV', 'MAINTENANCE', 'API_URL']),
 		new MiniCssExtractPlugin({
 			filename: 'assets/css/[name].css',
 		}),
