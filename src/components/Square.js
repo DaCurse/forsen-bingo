@@ -29,7 +29,7 @@ function Square(props) {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-	square: state.find((square) => square.id === ownProps.id),
+	square: state.squares.find((square) => square.id === ownProps.id),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

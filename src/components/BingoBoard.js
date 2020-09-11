@@ -68,6 +68,6 @@ function BingoBoard(props) {
 	);
 }
 
-const mapStateToProps = (state) => ({ squares: state });
+const mapStateToProps = (state) => ({ squares: state.squares });
 
 export default connect(mapStateToProps)(BingoBoard);

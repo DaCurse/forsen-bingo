@@ -33,7 +33,7 @@ function App(props) {
 }
 
 const mapStateToProps = (state) => ({
-	squares: state,
+	squares: state.squares,
 });
 
 const mapDispatchToProps = (dispatch) => ({
