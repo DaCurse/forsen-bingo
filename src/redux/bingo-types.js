@@ -1,0 +1,6 @@
+export const ACTIVATE_SQUARE = 'ACTIVATE_SQUARE';
+export const DEACTIVATE_SQUARE = 'DEACTIVATE_SQUARE';
+export const LOAD_BOARD = 'LOAD_BOARD';
+export const CLEAR_BOARD = 'CLEAR_BOARD';
+export const SAVE_BOARD = 'SAVE_BOARD';
+export const SET_AUTO_SAVE = 'SET_AUTO_SAVE';

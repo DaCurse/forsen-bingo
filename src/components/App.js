@@ -1,21 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import '../assets/css/app.scss';
-import { getSquares } from '../services/api-service';
+import { loadBoard } from '../redux/bingo-actions';
 import BingoBoard from './BingoBoard';
+import Controls from './Controls';
 
-export function App() {
-	const [squares, setSquares] = useState(null);
+function App(props) {
+	const { squares, loadBoard } = props;
 
 	useEffect(() => {
 		if (!squares) {
-			getSquares().then((squares) => setSquares(squares));
+			loadBoard();
 		}
 	}, []);
 
 	if (squares) {
 		return (
 			<div className="app">
-				<BingoBoard title="Forsen Mega Bingo" squares={squares} />
+				<BingoBoard />
+				<Controls />
+
 				<footer>
 					<a href="https://redd.it/ighswa">Original post</a> by /u/five_cacti
 					|&nbsp;
@@ -27,3 +31,13 @@ export function App() {
 
 	return <div className="loading">Loading</div>;
 }
+
+const mapStateToProps = (state) => ({
+	squares: state.squares,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	loadBoard: () => dispatch(loadBoard()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

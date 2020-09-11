@@ -1,23 +1,44 @@
 import axios from 'axios';
 import { stringify } from 'querystring';
 
-const API_URL = 'https://forsenbingo.tk/api/bingo';
+// Creating and configuring axios instance
+const api = axios.create({
+	baseURL: 'https://forsenbingo.tk/api/bingo',
+});
+api.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-export async function getSquares() {
-	const response = await axios.get(`${API_URL}/squares`);
+function responseHandler(response) {
+	return response;
+}
+
+function errorHandler(error) {
+	if (process.env.NODE_ENV !== 'production') {
+		console.dir(error);
+	}
+}
+
+api.interceptors.response.use(responseHandler, errorHandler);
+
+/**
+ * Retrieves a list of bingo squares from the API
+ */
+export async function fetchSquares() {
+	const response = await api.get('squares');
 	return response.data;
 }
 
-function post(endpoint, data) {
-	return axios.post(`${API_URL}/${endpoint}`, stringify(data), {
-		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-	});
+/**
+ * Logs an activation of a square
+ * @param {number} id ID of the square
+ */
+export function logActivateSquare(id) {
+	api.post('activate', stringify({ id }));
 }
 
-export async function activateSquare(id) {
-	await post('activate', { id });
-}
-
-export async function deactivateSquare(id) {
-	await post('deactivate', { id });
+/**
+ * Logs a deactivation of a square
+ * @param {number} id ID of the square
+ */
+export function logDeactivateSquare(id) {
+	api.post('deactivate', stringify({ id }));
 }

@@ -1,31 +1,40 @@
 import classNames from 'classnames';
 import React from 'react';
+import { connect } from 'react-redux';
 import '../assets/css/square.scss';
-import { activateSquare, deactivateSquare } from '../services/api-service';
+import { activateSquare, deactivateSquare } from '../redux/bingo-actions';
 
 function Square(props) {
-	const { line, id, freeSquare, active, setActive, children } = props;
+	const { square, activate, deactivate, children } = props;
 
 	function handleSquareClick() {
-		if (freeSquare) return;
+		if (square.freeSquare) return;
 
-		if (active) {
-			deactivateSquare(id);
+		if (square.active) {
+			deactivate();
 		} else {
-			activateSquare(id);
+			activate();
 		}
-		setActive(!active);
 	}
 
 	return (
 		<td
-			className={classNames('square', { active })}
+			className={classNames('square', { active: square.active })}
 			onClick={handleSquareClick}
 		>
-			{line}
+			{square.line}
 			{children}
 		</td>
 	);
 }
 
-export default Square;
+const mapStateToProps = (state, ownProps) => ({
+	square: state.squares.find((square) => square.id === ownProps.id),
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+	activate: () => dispatch(activateSquare(ownProps.id)),
+	deactivate: () => dispatch(deactivateSquare(ownProps.id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Square);

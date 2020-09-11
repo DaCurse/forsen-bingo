@@ -1,7 +1,11 @@
 .bingo-board {
-	width: 750px;
-	margin: 0 auto;
+	width: inherit;
 	min-height: 100%;
+}
+
+.date {
+	margin-top: -5px;
+	margin-bottom: 10px;
 }
 
 .winner {
@@ -9,12 +13,13 @@
 	transition: ease-in-out 0.2s;
 }
 
-.bingo-board table{
+.bingo-board table {
 	background-color: white;
 	table-layout: fixed;
-	width: 800px;
+	width: inherit;
 }
-th, td {
+th,
+td {
 	border: 1px solid black;
 	overflow: hidden;
 	height: 65px;
