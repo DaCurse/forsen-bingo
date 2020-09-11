@@ -1,19 +1,20 @@
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import { loadGameState } from '../services/storage-service';
+import { loadGameState, saveGameState } from '../services/storage-service';
 import rootReducer from './bingo-reducer';
 
 const middleware = [thunk];
-if (process.env.NODE_ENV !== 'production') {
-	const { logger } = require('redux-logger');
-	middleware.push(logger);
-}
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const enhancer = composeEnhancers(applyMiddleware(...middleware));
 
 const savedState = loadGameState();
-const store = createStore(
-	rootReducer,
-	savedState,
-	applyMiddleware(...middleware),
-);
+const store = createStore(rootReducer, savedState, enhancer);
+
+store.subscribe(() => {
+	const state = store.getState();
+	if (state.autoSave) {
+		saveGameState(state);
+	}
+});
 
 export default store;
