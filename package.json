@@ -4,6 +4,10 @@
 	"description": "Bingo React app",
 	"author": "DaCurse",
 	"license": "GPL-3.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/DaCurse/forsen-bingo.git"
+	},
 	"scripts": {
 		"build": "webpack --mode=\"production\" --progress",
 		"start": "webpack-dev-server --open",
