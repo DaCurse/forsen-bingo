@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import '../assets/css/bingo-board.scss';
+import { checkIntersections } from '../util/check-intersections';
 import { chunk } from '../util/chunk';
 import FreeSpace from './FreeSpace';
 import Square from './Square';
@@ -12,33 +13,35 @@ function BingoBoard(props) {
 	// Bingo board should optimally be a square
 	const tableSize = Math.ceil(Math.sqrt(squares.length));
 
-	// Very efficient win checking algorithm Kapp
+	// Win checking alogrithm, checks if either all rows, columns and both
+	// diagonals have only active squares
 	useEffect(() => {
-		const rows = chunk(squares, tableSize);
-		const fullRow = rows.some((row) => row.every((col) => col.active));
-		const fullCol = rows
-			.reduce(
-				(counters, row) =>
-					counters.map((counter, index) => counter + row[index].active),
-				Array(tableSize).fill(0),
-			)
-			.some((counter) => counter === tableSize);
+		// Util coord arrays
+		const indexes = [...Array(tableSize).keys()];
+		const indexesReverse = indexes.slice().reverse();
+		// Partially applying current board stats to reduce repetition
+		const checkBoardIntersections = checkIntersections.bind(
+			null,
+			squares,
+			tableSize,
+		);
 
-		let fullDiag = true,
-			fullAntiDiag = true;
+		let result = false;
+		// Check rows and columns
 		for (let i = 0; i < tableSize; i++) {
-			if (!rows[i][i].active) {
-				fullDiag = false;
-			}
-			if (!rows[i][tableSize - i - 1].active) {
-				fullAntiDiag = false;
-			}
+			result =
+				result ||
+				checkBoardIntersections(indexes, Array(tableSize).fill(i)) ||
+				checkBoardIntersections(Array(tableSize).fill(i), indexes);
 		}
+		// Check both diagonals
+		result =
+			result ||
+			checkBoardIntersections(indexes, indexes) ||
+			checkBoardIntersections(indexesReverse, indexes);
 
-		setWinner(fullRow || fullDiag || fullAntiDiag || fullCol);
+		setWinner(result);
 	}, [squares]);
-
-	// useEffect(() => saveGameState(squares, squareState), [squareState]);
 
 	const squaresToRender = squares.map((square, index) =>
 		square.freeSquare ? (
