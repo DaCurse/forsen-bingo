@@ -58,6 +58,7 @@ module.exports = {
 		new EnvironmentPlugin({
 			NODE_ENV: 'production',
 			MAINTENANCE: false,
+			API_URL: null,
 		}),
 		new MiniCssExtractPlugin({
 			filename: 'assets/css/[name].css',
