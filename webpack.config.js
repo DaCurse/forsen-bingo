@@ -56,7 +56,11 @@ module.exports = {
 			},
 		}),
 		// Exposing environment variables to browser
-		new EnvironmentPlugin(['NODE_ENV', 'MAINTENANCE', 'API_URL']),
+		new EnvironmentPlugin({
+			NODE_ENV: 'development',
+			MAINTENANCE: false,
+			API_URL: 'https://forsenbingo.tk/api/bingo/',
+		}),
 		new MiniCssExtractPlugin({
 			filename: 'assets/css/[name].css',
 		}),
